@@ -40,7 +40,7 @@ module Wombat
 
       def build_property(name, *args, &block)
         if args[1] == :iterator
-          Iterator.new(name, args.first)
+          Iterator.new(name, args.first, args[2])
         elsif args[1] == :follow
           Follower.new(name, args.first)
         else
