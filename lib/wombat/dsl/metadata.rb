@@ -27,6 +27,10 @@ module Wombat
       def page(page)
         self[:page] = page
       end
+
+      def headers(headers)
+        self[:headers] = headers
+      end
     end
   end
 end
