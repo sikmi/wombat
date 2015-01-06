@@ -37,11 +37,23 @@ module Wombat
           @page = metadata[:page]
 
           if metadata[:document_format] == :html
-            @page = @mechanize.get(url,[],nil,(metadata[:headers]||{})) unless @page
+            unless @page
+              if metadata[:type] == :post
+                @page = @mechanize.post(url,metadata[:query],[],nil,(metadata[:headers]||{}))
+              else
+                @page = @mechanize.get(url,[],nil,(metadata[:headers]||{}))
+              end
+            end
             parser = @page.parser
             parser.headers = @page.header
           else
-            @page = RestClient.get(url,(metadata[:headers]||{})) unless @page
+            unless @page
+              if metadata[:type] == :post
+                @page = RestClient.post(url,metadata[:query],(metadata[:headers]||{}))
+              else
+                @page = RestClient.get(url,(metadata[:headers]||{}))
+              end
+            end
             parser = Nokogiri::XML @page
             parser.headers = @page.headers
           end
