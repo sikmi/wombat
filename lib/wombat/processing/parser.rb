@@ -39,7 +39,7 @@ module Wombat
           if metadata[:document_format] == :html
             unless @page
               if metadata[:type] == :post
-                @page = @mechanize.post(url,metadata[:query],[],nil,(metadata[:headers]||{}))
+                @page = @mechanize.post(url,metadata[:query],(metadata[:headers]||{}))
               else
                 @page = @mechanize.get(url,[],nil,(metadata[:headers]||{}))
               end
